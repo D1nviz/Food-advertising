@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //timer
   const deadLine = "2024-01-30";
 
-  //TODO: особисто мені вже приємніше дивитись на стрілкові функції - const getTimeRemaining = (endTime) => {}
+ 
   const getTimeRemaining = (endTime) => {
     let days, hours, minutes, seconds;
     const t = Date.parse(endTime) - Date.now();
@@ -67,17 +67,17 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  const getZero = (num) => num >= 0 && num < 10 ? `0${num}` : num;
+  const getZero = (num) => ( num >= 0 && num < 10 ) ? `0${num}` : num;
 
   const setClock = (endtime) => {
     const timer = document.querySelector(".timer"),
       days = timer.querySelector("#days"),
       hours = timer.querySelector("#hours"),
       minutes = timer.querySelector("#minutes"),
-      seconds = timer.querySelector("#seconds"),
-      timeInterval = setInterval(updateClock, 1000);
-    
-    function updateClock () {
+      seconds = timer.querySelector("#seconds");
+      
+    const updateClock = () => {
+      const timeInterval = setInterval(updateClock, 1000);
       const time = getTimeRemaining(endtime);
       days.innerHTML = getZero(time.days);
       hours.innerHTML = getZero(time.hours);
