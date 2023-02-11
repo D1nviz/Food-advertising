@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tabsContent = document.querySelectorAll(".tabcontent"),
     tabsParent = document.querySelector(".tabheader__items");
 
-  function hideTabContent() {
+  const hideTabContent = () => {
     tabsContent.forEach((item) => {
       item.classList.add("hide");
       item.classList.remove("show", "fade");
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const deadLine = "2024-01-30";
 
   //TODO: особисто мені вже приємніше дивитись на стрілкові функції - const getTimeRemaining = (endTime) => {}
-  function getTimeRemaining(endTime) {
+  const getTimeRemaining = (endTime) => {
     let days, hours, minutes, seconds;
     const t = Date.parse(endTime) - Date.now();
     if (t <= 0) {
@@ -67,34 +67,28 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  function getZero(num) {
-    if (num >= 0 && num < 10) {
-      return `0${num}`;
-    }
-    return num;
-  }
+  const getZero = (num) => num >= 0 && num < 10 ? `0${num}` : num;
 
-  function setClock(endtime) {
+  const setClock = (endtime) => {
     const timer = document.querySelector(".timer"),
       days = timer.querySelector("#days"),
       hours = timer.querySelector("#hours"),
       minutes = timer.querySelector("#minutes"),
       seconds = timer.querySelector("#seconds"),
       timeInterval = setInterval(updateClock, 1000);
-    updateClock();
+    
+    function updateClock () {
+      const time = getTimeRemaining(endtime);
+      days.innerHTML = getZero(time.days);
+      hours.innerHTML = getZero(time.hours);
+      minutes.innerHTML = getZero(time.minutes);
+      seconds.innerHTML = getZero(time.seconds);
 
-    //TODO: шо за константа t, наіменування нормальне має бути))
-    function updateClock() {
-      const t = getTimeRemaining(endtime);
-      days.innerHTML = getZero(t.days);
-      hours.innerHTML = getZero(t.hours);
-      minutes.innerHTML = getZero(t.minutes);
-      seconds.innerHTML = getZero(t.seconds);
-
-      if (t.total <= 0) {
+      if (time.total <= 0) {
         clearInterval(timeInterval);
       }
     }
+    updateClock();
   }
   setClock(deadLine);
 
@@ -103,14 +97,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalTrigger = document.querySelectorAll("[data-modal]");
   const modal = document.querySelector(".modal");
 
-  function openModal() {
+  const openModal = () => {
     modal.classList.add("show");
     modal.classList.remove("hide");
     document.body.style.overflow = "hidden";
     clearInterval(modalTimerId);
     window.removeEventListener("scroll", showModalByScroll);
   }
-  function closeModal() {
+  const closeModal = () => {
     modal.classList.add("hide");
     modal.classList.remove("show");
     document.body.style.overflow = "";
@@ -132,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  function showModalByScroll() {
+  const showModalByScroll = () => {
     if (
       window.pageYOffset + document.documentElement.clientHeight >=
       document.documentElement.scrollHeight - 1
@@ -218,8 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const forms = document.querySelectorAll("form");
 
-  forms.forEach((item) => postData(item));
-
   const message = {
     loading: "img/form/spinner.svg",
     success: "Спасибо! Скоро мы с вами свяжемся!",
@@ -227,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
 
-  function postData(form) {
+  const postData = (form) => {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
@@ -266,9 +258,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+  forms.forEach((item) => postData(item));
   
 
-  function showThanksModal(message) {
+  const showThanksModal = (message) => {
     const prevModalDialog = document.querySelector(".modal__dialog");
 
     prevModalDialog.classList.add("hide");
