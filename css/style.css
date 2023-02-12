@@ -244,10 +244,11 @@ a {
 	margin-top: 70px
 }
 .offer__advantages-title{
-	font-size: 20px;
+	margin-top: 15px;
+	font-size: 25px;
 }
 .offer__advantages-text {
-	margin-top: 20px;
+	margin-top: 10px;
 	font-size: 18px;
 	font-weight: 300;
 	line-height: 21px
