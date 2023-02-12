@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       hours = timer.querySelector("#hours"),
       minutes = timer.querySelector("#minutes"),
       seconds = timer.querySelector("#seconds");
-      
+
     const updateClock = () => {
       const timeInterval = setInterval(updateClock, 1000);
       const time = getTimeRemaining(endtime);
@@ -114,12 +114,11 @@ document.addEventListener("DOMContentLoaded", () => {
     item.addEventListener("click", openModal);
   });
 
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal || e.target.getAttribute("data-close") == "") {
-      closeModal();
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal || e.target.getAttribute('data-close') == "") {
+        closeModal();
     }
   });
-
   document.addEventListener("keydown", (e) => {
     if (e.code === "Escape" && modal.classList.contains("show")) {
       closeModal();
@@ -260,14 +259,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   forms.forEach((item) => postData(item));
   
+  const prevModalDialog = document.querySelector(".modal__dialog");
+  const thanksModal = document.createElement("div");
+
+  const closeThanksModal = () => {
+    thanksModal.remove();
+    prevModalDialog.classList.add("show");
+    prevModalDialog.classList.remove("hide");
+    closeModal();
+  }
 
   const showThanksModal = (message) => {
-    const prevModalDialog = document.querySelector(".modal__dialog");
-
+   
     prevModalDialog.classList.add("hide");
     openModal();
-
-    const thanksModal = document.createElement("div");
     thanksModal.classList.add("modal__dialog");
     thanksModal.innerHTML = `
     <div class="modal__content">
@@ -275,15 +280,16 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="modal__title">${message}</div>
     </div>
     `;
+
     document.querySelector(".modal").append(thanksModal);
-    const closeThanksModal = () => {
-      thanksModal.remove();
-      prevModalDialog.classList.add("show");
-      prevModalDialog.classList.remove("hide");
-      closeModal();
-    }
+    document.addEventListener("keydown", (e) => {
+      if (e.code === "Escape" && thanksModal) {
+        closeThanksModal();
+      }
+    });
 
     thanksModal.querySelector(".modal__close").addEventListener("click", closeThanksModal);
     setTimeout(closeThanksModal, 5000);
   }
+  
 });
