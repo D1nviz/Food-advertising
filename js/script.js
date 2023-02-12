@@ -231,30 +231,29 @@ document.addEventListener("DOMContentLoaded", () => {
       statusMessage.textContent = message.loading;
       form.insertAdjacentElement("afterend", statusMessage);
 
-      const request = new XMLHttpRequest();
-      request.open("POST", "server.php");
-
       const formData = new FormData(form);
 
       const object = {};
       formData.forEach((value, key) => {
         object[key] = value;
       });
-      const json = JSON.stringify(object);
 
-      //TODO: send i open мають бути в самому кінці, так що поміняй місцями send i onreadychanges
-      request.send(json);
-      //TODO: onreadychanges
-      request.addEventListener("load", () => {
-        if (request.status === 200) {
-          console.log(request);
-          form.reset();
-          statusMessage.remove();
-          showThanksModal(message.success);
-        } else {
-          showThanksModal(message.failure);
-        }
-      });
+      fetch("server.php", {
+        method: "POST",
+        headers: {
+          "content-type":"application/json"
+        },
+        body: JSON.stringify(object)
+      }).then(data => data.text())
+        .then(data => {
+        console.log(data);
+        statusMessage.remove();
+        showThanksModal(message.success);
+      }).catch(() => {
+        showThanksModal(message.failure);
+      }).finally(() => {
+        form.reset();
+      })
     });
   }
   forms.forEach((item) => postData(item));
@@ -291,5 +290,15 @@ document.addEventListener("DOMContentLoaded", () => {
     thanksModal.querySelector(".modal__close").addEventListener("click", closeThanksModal);
     setTimeout(closeThanksModal, 5000);
   }
+
+  fetch('https://jsonplaceholder.typicode.com/todos/posts', {
+    method: "POST",
+    body: JSON.stringify({name: "Alex"}),
+    headers: {
+      "Content-type": "application/json"
+    }
+  })
+      .then(response => response.json())
+      .then(json => console.log(json));
   
 });
