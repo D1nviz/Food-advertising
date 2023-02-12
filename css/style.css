@@ -243,6 +243,9 @@ a {
 .offer__advantages h2:first-child {
 	margin-top: 70px
 }
+.offer__advantages-title{
+	font-size: 20px;
+}
 .offer__advantages-text {
 	margin-top: 20px;
 	font-size: 18px;

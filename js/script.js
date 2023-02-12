@@ -291,7 +291,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     modal.addEventListener("click", (e) => {
       if (e.target === modal || e.target.getAttribute('data-close') === "") {
-        console.log(e.target);
         closeThanksModal(thanksModal, prevModalDialog);
     }
     });
