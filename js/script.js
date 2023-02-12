@@ -244,24 +244,24 @@ document.addEventListener("DOMContentLoaded", () => {
           "content-type":"application/json"
         },
         body: JSON.stringify(object)
-      }).then(data => data.text())
-        .then(data => {
+      })
+      .then(data => data.text())
+      .then(data => {
         console.log(data);
         statusMessage.remove();
         showThanksModal(message.success);
-      }).catch(() => {
+      })
+      .catch(() => {
         showThanksModal(message.failure);
-      }).finally(() => {
+      })
+      .finally(() => {
         form.reset();
       })
     });
   }
   forms.forEach((item) => postData(item));
   
-  const prevModalDialog = document.querySelector(".modal__dialog");
-  const thanksModal = document.createElement("div");
-
-  const closeThanksModal = () => {
+  const closeThanksModal = (thanksModal, prevModalDialog) => {
     thanksModal.remove();
     prevModalDialog.classList.add("show");
     prevModalDialog.classList.remove("hide");
@@ -269,6 +269,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const showThanksModal = (message) => {
+    const prevModalDialog = document.querySelector(".modal__dialog");
+    const thanksModal = document.createElement("div");
    
     prevModalDialog.classList.add("hide");
     openModal();
@@ -283,22 +285,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".modal").append(thanksModal);
     document.addEventListener("keydown", (e) => {
       if (e.code === "Escape" && thanksModal) {
-        closeThanksModal();
+        closeThanksModal(thanksModal, prevModalDialog);
       }
     });
 
-    thanksModal.querySelector(".modal__close").addEventListener("click", closeThanksModal);
-    setTimeout(closeThanksModal, 5000);
-  }
-
-  fetch('https://jsonplaceholder.typicode.com/todos/posts', {
-    method: "POST",
-    body: JSON.stringify({name: "Alex"}),
-    headers: {
-      "Content-type": "application/json"
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal || e.target.getAttribute('data-close') === "") {
+        console.log(e.target);
+        closeThanksModal(thanksModal, prevModalDialog);
     }
-  })
-      .then(response => response.json())
-      .then(json => console.log(json));
+    });
+  }
   
 });
