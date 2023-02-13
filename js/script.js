@@ -14,13 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
     tabs.forEach((item) => {
       item.classList.remove("tabheader__item_active");
     });
-  }
+  };
 
   const showTabContent = (i = 0) => {
     tabsContent[i].classList.add("show", "fade");
     tabsContent[i].classList.remove("hide");
     tabsContent[i].classList.add("tabheader__item_active");
-  }
+  };
 
   hideTabContent();
   showTabContent();
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
       minutes: minutes,
       seconds: seconds,
     };
-  }
+  };
 
   const getZero = (num) => ( num >= 0 && num < 10 ) ? `0${num}` : num;
 
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
     updateClock();
-  }
+  };
   setClock(deadLine);
   // Modal
   //TODO: винести в окремий клас
@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
     prevModalDialog.classList.add("show");
     prevModalDialog.classList.remove("hide");
     closeModal();
-  }
+  };
 
   const showThanksModal = (message) => {
     const prevModalDialog = document.querySelector(".modal__dialog");
@@ -292,6 +292,6 @@ document.addEventListener("DOMContentLoaded", () => {
         closeThanksModal(thanksModal, prevModalDialog);
     }
     });
-  }
+  };
   
 });
