@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function showTabContent(i = 0) {
+  const showTabContent = (i = 0) => {
     tabsContent[i].classList.add("show", "fade");
     tabsContent[i].classList.remove("hide");
     tabsContent[i].classList.add("tabheader__item_active");
@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
   //timer
   const deadLine = "2024-01-30";
 
- 
   const getTimeRemaining = (endTime) => {
     let days, hours, minutes, seconds;
     const t = Date.parse(endTime) - Date.now();
@@ -91,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateClock();
   }
   setClock(deadLine);
-
   // Modal
   //TODO: винести в окремий клас
   const modalTrigger = document.querySelectorAll("[data-modal]");
