@@ -274,6 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     });
   };
+
   //Slider
   
     const slides = document.querySelectorAll('.offer__slide'),
@@ -368,5 +369,6 @@ document.addEventListener("DOMContentLoaded", () => {
       checkCurrentSlides();
     });
   });
+
   
 });
