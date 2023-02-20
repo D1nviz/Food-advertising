@@ -378,9 +378,20 @@ document.addEventListener("DOMContentLoaded", () => {
   
   
   let sex, height, weight, age, ratio;
-  sex = localStorage.getItem("sex") ? localStorage.getItem("sex") : "female";
-  ratio = localStorage.getItem("radio") ? localStorage.getItem("radio") : "1.375";
 
+  if(localStorage.getItem("sex")) {
+   sex = localStorage.getItem("sex"); 
+  } else {
+    sex = "female";
+    localStorage.setItem("sex","female" )
+  }
+  if(localStorage.getItem("radio")) {
+    ratio = localStorage.getItem("ratio"); 
+  } else {
+     ratio = 1.375;
+     localStorage.setItem("ratio", 1.375);
+  }
+  
   const calcTotal = () => {
     if (!sex || !height || !weight || !age || !ratio) {
       result.textContent = "____";
