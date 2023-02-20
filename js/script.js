@@ -375,12 +375,13 @@ document.addEventListener("DOMContentLoaded", () => {
   //Calculator 
 
   const result = document.querySelector(".calculating__result span");
-  let sex = 'female',
-        height, weight, age,
-        ratio = 1.375;
+  
+  
+  let sex, height, weight, age, ratio;
+  sex = localStorage.getItem("sex") ? localStorage.getItem("sex") : "female";
+  ratio = localStorage.getItem("radio") ? localStorage.getItem("radio") : "1.375";
 
   const calcTotal = () => {
-    
     if (!sex || !height || !weight || !age || !ratio) {
       result.textContent = "____";
       return;
@@ -392,15 +393,36 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   calcTotal();
 
-  const getStaticInfo = (parentSelector, activeClass) => {
-    const elements = document.querySelectorAll(`${parentSelector} p`);
+  const initLocalSettings = (selector, activeClass) => {
+    const elements = document.querySelectorAll(selector);
+
+    elements.forEach(elem => {
+      elem.classList.remove(activeClass);
+      if (elem.getAttribute('id') === localStorage.getItem('sex')) {
+        elem.classList.add(activeClass);
+      }
+      if (elem.getAttribute('data-ratio') === localStorage.getItem('ratio')) {
+        elem.classList.add(activeClass);
+      }
+    });
+  };
+
+  initLocalSettings("#gender p","calculating__choose-item_active");
+  initLocalSettings(".calculating__choose_big p","calculating__choose-item_active");
+
+  const getStaticInfo = (selector, activeClass) => {
+    const elements = document.querySelectorAll(selector);
 
     elements.forEach(elem => {
       elem.addEventListener("click", (e) => {
         if(e.target.getAttribute("data-ratio")) {
           ratio = +e.target.getAttribute("data-ratio");
+
+          localStorage.setItem("ratio", +e.target.getAttribute("data-ratio"))
         } else {
           sex = e.target.getAttribute("id");
+  
+          localStorage.setItem("sex", e.target.getAttribute("id"))
         }
 
         elements.forEach(element => {
@@ -413,13 +435,19 @@ document.addEventListener("DOMContentLoaded", () => {
     })
       
   } 
-  getStaticInfo("#gender","calculating__choose-item_active");
-  getStaticInfo(".calculating__choose_big","calculating__choose-item_active");
+  getStaticInfo("#gender p","calculating__choose-item_active");
+  getStaticInfo(".calculating__choose_big p","calculating__choose-item_active");
 
   const getDynamycInfo = selector => {
     const input = document.querySelector(selector);
 
+    
     input.addEventListener('input', () => {
+      if(input.value.match(/\D/g)) {
+        input.style.border = "2px solid red";
+      } else {
+        input.style.border = "none";
+      }
       switch(input.getAttribute("id")) {
         case "height":
           height = +input.value;
@@ -435,10 +463,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
   };
-
+  
+  
   getDynamycInfo("#height");
   getDynamycInfo("#weight");
   getDynamycInfo("#age");
  
-
 });
