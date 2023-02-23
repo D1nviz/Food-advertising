@@ -25,7 +25,7 @@ const calc = () => {
     sex = "female";
     localStorage.setItem("sex", "female");
   }
-  if (localStorage.getItem("radio")) {
+  if (localStorage.getItem("ratio")) {
     ratio = localStorage.getItem("ratio");
   } else {
     ratio = 1.375;
