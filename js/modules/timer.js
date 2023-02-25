@@ -25,7 +25,7 @@ const timer = (id, deadLine) => {
     };
   };
 
-  const getZero = (num) => (num >= 0 && num < 10) ? `0${num}` : num;
+  const getZero = (num) => (num >= 0 && num < 10 ? `0${num}` : num);
 
   const setClock = (endtime) => {
     const timer = document.querySelector(id),
@@ -33,7 +33,6 @@ const timer = (id, deadLine) => {
       hours = timer.querySelector("#hours"),
       minutes = timer.querySelector("#minutes"),
       seconds = timer.querySelector("#seconds");
-
 
     const updateClock = () => {
       const time = getTimeRemaining(endtime);
@@ -45,10 +44,9 @@ const timer = (id, deadLine) => {
       if (time.total <= 0) {
         clearInterval(timeInterval);
       }
-    }
+    };
     const timeInterval = setInterval(updateClock, 1000);
     updateClock();
-
   };
   setClock(deadLine);
 };

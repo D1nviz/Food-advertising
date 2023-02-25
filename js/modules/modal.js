@@ -1,6 +1,6 @@
 const openModal = (modalSelector, modalTimerId) => {
   const modal = document.querySelector(modalSelector);
-  
+
   modal.classList.add("show");
   modal.classList.remove("hide");
   document.body.style.overflow = "hidden";
@@ -15,7 +15,6 @@ const closeModal = (modalSelector) => {
   modal.classList.add("hide");
   modal.classList.remove("show");
   document.body.style.overflow = "";
-  
 };
 
 const modal = (triggerSelector, modalSelector, modalTimerId) => {
@@ -23,13 +22,12 @@ const modal = (triggerSelector, modalSelector, modalTimerId) => {
   const modalTrigger = document.querySelectorAll(triggerSelector);
   const modal = document.querySelector(modalSelector);
 
-
   modalTrigger.forEach((item) => {
     item.addEventListener("click", () => openModal(modalSelector));
   });
 
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal || e.target.getAttribute('data-close') == "") {
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal || e.target.getAttribute("data-close") == "") {
       closeModal(modalSelector);
     }
   });
@@ -47,7 +45,7 @@ const modal = (triggerSelector, modalSelector, modalTimerId) => {
       openModal(modalSelector, modalTimerId);
       window.removeEventListener("scroll", showModalByScroll);
     }
-  }
+  };
   window.addEventListener("scroll", showModalByScroll);
 };
 
